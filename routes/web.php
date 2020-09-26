@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\PostController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,8 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Rota responsavel por criar o post
-Route::resource('/posts', PostController::class);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//Rota responsavel por criar o post
+Route::resource('/posts', PostController::class);
+

@@ -4,19 +4,21 @@
 <div class="row">
       <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                 <h2>Criar novo Post</h2>
+                 <h2>Editar post</h2>
            </div>
      </div>
-</div>
+</div>   
 
-<form action="{{ route('posts.store') }}" method="POST">
+<form action="{{ route('posts.update' , $post->id) }}" method="POST">
 
 @csrf
+@method( 'PUT')
+
 <div class="col">
   <div class="col">
     <div class="form-group">
       <strong>Title: </strong>
-      <input type="text" name="title" class="form-control"/>
+      <input type="text" name="title" class="form-control" value="{{$post->title}}"/>
     </div>
   </div>
 </div>
@@ -25,7 +27,7 @@
   <div class="col">
     <div class="form-group">
       <strong>Body: </strong>
-       <textarea  class="form-control" name="body"></textarea>
+       <textarea  class="form-control" name="body" >{{$post->body}}</textarea>
     </div>
   </div>
 </div>
@@ -38,5 +40,7 @@
 
 
 </form>
+
+
 
 @endsection

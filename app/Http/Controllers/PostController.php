@@ -12,9 +12,12 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     //Metodo esponsavel por listar todos os posts
     public function index()
     {
-        //
+        $posts = Post::all();
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -35,9 +38,11 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    //metodo responsavel por cadastrar no banco
     public function store(Request $request)
     {
-        //
+        Post::create($request->all());
+        return redirect('posts');//->with('success', 'Post criado com sucesso');
     }
 
     /**
@@ -46,9 +51,11 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
+
+     //metodo responsavel por vi os dados
     public function show(Post $post)
     {
-        //
+        return view('posts.show', compact('post'));
     }
 
     /**
@@ -57,9 +64,12 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
+
+     //rota para mostrar em um form, as informações que precisam ser editadas 
     public function edit(Post $post)
     {
-        //
+        return view('posts.edith', compact('post'));
+
     }
 
     /**
@@ -69,9 +79,15 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
+
+     //rota para atualizar as informações do form de edição
     public function update(Request $request, Post $post)
     {
-        //
+        $post->update($request->all());
+
+        return redirect()->route('posts.index');
+                                 //->wite('success', 'Post atualizado com sucesso');
+
     }
 
     /**
@@ -82,6 +98,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect()->route('posts.index');
     }
 }
