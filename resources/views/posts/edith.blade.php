@@ -9,6 +9,13 @@
      </div>
 </div>   
 
+@if(session('success'))
+<div class="alert alert-success">
+  {{session('success')}}
+</div>
+@endif
+
+
 <form action="{{ route('posts.update' , $post->id) }}" method="POST">
 
 @csrf

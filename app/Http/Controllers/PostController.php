@@ -42,7 +42,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         Post::create($request->all());
-        return redirect('posts');//->with('success', 'Post criado com sucesso');
+        return redirect('posts')->with('success', 'Post criado com sucesso');
     }
 
     /**
@@ -85,8 +85,7 @@ class PostController extends Controller
     {
         $post->update($request->all());
 
-        return redirect()->route('posts.index');
-                                 //->wite('success', 'Post atualizado com sucesso');
+        return redirect()->route('posts.index')->with('success', 'Post atualizado com sucesso');
 
     }
 
@@ -99,6 +98,6 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.index')->with('success', 'Post deletado com sucesso');
     }
 }

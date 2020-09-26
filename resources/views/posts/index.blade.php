@@ -8,6 +8,12 @@
      </div>
 </div>   
 
+@if(session('success'))
+<div class="alert alert-success">
+  {{session('success')}}
+</div>
+@endif
+
 <div class="d-flex flex-row d-flex justify-content-start">
 <div class="card" style="width: 18rem;">
   @foreach($posts as $post )
