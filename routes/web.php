@@ -22,5 +22,5 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Rota responsavel por criar o post
-Route::resource('/posts', PostController::class);
+Route::resource('/posts', PostController::class)->middleware('auth');
 

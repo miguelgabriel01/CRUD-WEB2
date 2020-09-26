@@ -12,4 +12,9 @@ class Post extends Model
     protected $fillable = [
         'title','body',
     ];
+
+    //função de acesso ao usuario
+    public function user(){
+        return $this->belongsTo('App\Models\User');
+    }
 }

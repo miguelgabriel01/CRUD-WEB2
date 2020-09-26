@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;//classe de autenticação
 
 class PostController extends Controller
 {
@@ -41,7 +42,11 @@ class PostController extends Controller
     //metodo responsavel por cadastrar no banco
     public function store(Request $request)
     {
-        Post::create($request->all());
+        //Post::create($request->all());
+        $post = new Post($request->all());///criamos
+
+        $post->user_id = Auth::id();//identificamos o autor
+        $post->save();//salvamos
         return redirect('posts')->with('success', 'Post criado com sucesso');
     }
 

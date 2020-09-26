@@ -33,7 +33,15 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                    <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Acções disponiveis
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="{{ route ('posts.index')}}">{{'Post index'}}</a>
+    <a class="dropdown-item" href="{{ route ('posts.create')}}">{{'Create novo Post'}}</a>
+  </div>
+</div>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -72,7 +80,7 @@
             </div>
         </nav>
 
-        <main class="py-4 container flex-row">
+        <main class="py-4 container">
             @yield('content')
         </main>
     </div>
