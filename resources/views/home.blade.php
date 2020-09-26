@@ -1,23 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+@foreach($posts as $post)
 
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{$post->id}}</h5>
+    <small>{{$post->user->name}}</small><br>
+    <h6 class="card-subtitle mb-2 text-muted">{{$post->title}}</h6>
+    <p class="card-text">{{$post->body}}</p>
+    <strong>Criado: {{$post->created_at}}</strong>
+    <strong>Editado: {{$post->updated_at}}</strong><br>
+  </div>
 </div>
+
+{{$posts -> links()}}
+
+@endforeach
+
 @endsection

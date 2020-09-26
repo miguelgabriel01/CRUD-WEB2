@@ -14,11 +14,18 @@
 </div>
 @endif
 
+@if(session('error'))
+<div class="alert alert-danger">
+  {{session('error')}}
+</div>
+@endif
+
 <div class="d-flex flex-row d-flex justify-content-start">
 <div class="card" style="width: 18rem;">
   @foreach($posts as $post )
   <div class="card-body">
     <h5 class="card-title">{{$post->id}}</h5>
+    <small>{{$post->user->name}}</small><br>
     <a href="{{url('/posts/{$pots->id}') }}" class="card-link">{{$post->title}}</a>
     <p class="card-text">{{$post->body}}</p><br>
 

@@ -17,8 +17,9 @@ class PostController extends Controller
      //Metodo esponsavel por listar todos os posts
     public function index()
     {
-        $posts = Post::paginate(3);
-        return view('posts.index', compact('posts'));
+        $posts = Post::where('user_id',Auth::id())->orderBy('created_at','desc')->paginate(3);//asc para do mais velho ao mais novo
+
+        return view('posts.index',compact('posts'));
     }
 
     /**
@@ -73,7 +74,16 @@ class PostController extends Controller
      //rota para mostrar em um form, as informações que precisam ser editadas 
     public function edit(Post $post)
     {
+        if($post->user_id===Auth::id()){
+
         return view('posts.edith', compact('post'));
+        }
+        else{
+            return redirect()->route('posts.index')
+                                     ->with('error', 'você não autorização para editar esta publicação. por favor, vá dormi')
+                                     ->withInput();
+        }
+
 
     }
 
@@ -88,9 +98,15 @@ class PostController extends Controller
      //rota para atualizar as informações do form de edição
     public function update(Request $request, Post $post)
     {
-        $post->update($request->all());
-
-        return redirect()->route('posts.index')->with('success', 'Post atualizado com sucesso');
+        if($post->user_id===Auth::id()){
+            $post->update($request->all());
+            return redirect()->route('posts.index')->with('success', 'Post atualizado com sucesso');
+        }
+        else{
+            return redirect()->route('posts.index')
+                                     ->with('error', 'você não autorização para editar esta publicação. por favor, vá dormi')
+                                     ->withInput();
+        }
 
     }
 
@@ -102,7 +118,16 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $post->delete();
-        return redirect()->route('posts.index')->with('success', 'Post deletado com sucesso');
+        if($post->user_id===Auth::id()){
+            $post->delete();
+            return redirect()->route('posts.index')->with('success', 'Post deletado com sucesso');
+        }
+        else{
+            return redirect()->route('posts.index')
+                                     ->with('error', 'você não autorização para deletar esta publicação. por favor, vá dormi')
+                                     ->withInput();
+        }
+
+
     }
 }
