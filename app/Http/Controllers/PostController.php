@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;//classe de autenticação
+use Illuminate\Validation\Rule;
 
 class PostController extends Controller
 {
@@ -43,8 +44,14 @@ class PostController extends Controller
     //metodo responsavel por cadastrar no banco
     public function store(Request $request)
     {
-        //Post::create($request->all());
-        $post = new Post($request->all());///criamos
+
+        //Fazemos a validação dos campos de titulo e corpo da postagem
+     $validatedData = $request ->validate([
+         'title' => ['required','unique:posts','max:255'],//obrigatorio,valor unico e tem que possuir no maximo, 255 caracteres
+         'body' => ['required'],//obrigatorio
+     ]);
+
+        $post = new Post( $validatedData);///criamos após a validação
 
         $post->user_id = Auth::id();//identificamos o autor
         $post->save();//salvamos
@@ -98,6 +105,12 @@ class PostController extends Controller
      //rota para atualizar as informações do form de edição
     public function update(Request $request, Post $post)
     {
+
+        $validatedData = $request->validate([
+            'title' => ['required',Rule::unique('posts')->ignore($post),'max:255'],//obrigatorio,valor unico e tem que possuir no maximo, 255 caracteres
+            'body' => ['required'],//obrigatorio
+   
+        ]);
         if($post->user_id===Auth::id()){
             $post->update($request->all());
             return redirect()->route('posts.index')->with('success', 'Post atualizado com sucesso');

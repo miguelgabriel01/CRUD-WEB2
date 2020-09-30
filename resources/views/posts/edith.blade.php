@@ -9,11 +9,19 @@
      </div>
 </div>   
 
-@if(session('success'))
-<div class="alert alert-success">
-  {{session('success')}}
-</div>
+@if ($errors->any())
+  <div class="alert alert-danger">
+    <strong>Ops!</strong>existem problemas com os dados recebidos <br><br>
+    <ul>
+      @foreach($errors->all() as $error)
+      <li>
+        {{$error}}
+       </li>
+       @endforeach
+    </ul>
+  </div>
 @endif
+
 
 
 <form action="{{ route('posts.update' , $post->id) }}" method="POST">
@@ -25,7 +33,7 @@
   <div class="col">
     <div class="form-group">
       <strong>Title: </strong>
-      <input type="text" name="title" class="form-control" value="{{$post->title}}"/>
+      <input type="text" name="title" class="form-control" value="{{$post->title}}" required="" maxlength="255"/>
     </div>
   </div>
 </div>
@@ -34,7 +42,7 @@
   <div class="col">
     <div class="form-group">
       <strong>Body: </strong>
-       <textarea  class="form-control" name="body" >{{$post->body}}</textarea>
+       <textarea  class="form-control" name="body" required="">{{$post->body}}</textarea>
     </div>
   </div>
 </div>
@@ -44,7 +52,7 @@
     <button type="submit" class="btn col btn-primary">Cadastrar</button>
   </div>
 </div>
-
+   
 
 </form>
 
