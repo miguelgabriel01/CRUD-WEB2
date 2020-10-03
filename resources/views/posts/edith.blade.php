@@ -24,7 +24,7 @@
 
 
 
-<form action="{{ route('posts.update' , $post->id) }}" method="POST">
+<form action="{{ route('posts.update' , $post->id) }}" method="POST" enctype="multipart/form-data">
 
 @csrf
 @method( 'PUT')
@@ -46,6 +46,17 @@
     </div>
   </div>
 </div>
+
+<div class="col">
+  <div class="col">
+    <div class="form-group">
+      <strong>Image: </strong>
+      <img src="{{ asset('storage/'.$post->image->path)}}" alt="..." class="img-thumbnail">
+      <input type="file" name="image"  id="image" class="form-control"  required="" value="{{old('image')}}"/>
+    </div>
+  </div>
+</div>
+
 
 <div class="row">
   <div class="col text-center">

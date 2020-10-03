@@ -7,6 +7,7 @@ use App\Models\Image;//model de image
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;//classe de autenticação
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -125,10 +126,13 @@ class PostController extends Controller
         $validatedData = $request->validate([
             'title' => ['required',Rule::unique('posts')->ignore($post),'max:255'],//obrigatorio,valor unico e tem que possuir no maximo, 255 caracteres
             'body' => ['required'],//obrigatorio
+            'image' => ['mimes:jpeg,png','dimensions:min_width=200,min_height=200'],
+
    
         ]);
         if($post->user_id===Auth::id()){
             $post->update($request->all());
+            
             return redirect()->route('posts.index')->with('success', 'Post atualizado com sucesso');
         }
         else{
@@ -148,7 +152,12 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         if($post->user_id===Auth::id()){
+           
+            $path = $post->image->path;
+
             $post->delete();
+            Storage::disk('public')->delete($path);
+
             return redirect()->route('posts.index')->with('success', 'Post deletado com sucesso');
         }
         else{

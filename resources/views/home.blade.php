@@ -4,6 +4,13 @@
 
 @foreach($posts as $post)
 
+@isset($post->image)
+
+<img src="{{ asset('storage/'.$post->image->path)}}" alt="..." class="img-thumbnail">
+
+@endisset
+
+
 <div class="card" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title">{{$post->id}}</h5>
