@@ -52,7 +52,7 @@
     <div class="form-group">
       <strong>Image: </strong>
       <img src="{{ asset('storage/'.$post->image->path)}}" alt="..." class="img-thumbnail">
-      <input type="file" name="image"  id="image" class="form-control"  required="" value="{{old('image')}}"/>
+      <input type="file" name="image"  id="image" class="form-control"   value="{{old('image')}}"/>
     </div>
   </div>
 </div>
