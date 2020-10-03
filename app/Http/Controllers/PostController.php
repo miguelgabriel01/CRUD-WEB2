@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
+use App\Models\Post;//model de post 
+use App\Models\Image;//model de image
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;//classe de autenticação
 use Illuminate\Validation\Rule;
@@ -49,12 +50,27 @@ class PostController extends Controller
      $validatedData = $request ->validate([
          'title' => ['required','unique:posts','max:255'],//obrigatorio,valor unico e tem que possuir no maximo, 255 caracteres
          'body' => ['required'],//obrigatorio
+         'image' => ['mimes:jpeg,png','dimensions:min_width=200,min_height=200'],
      ]);
 
         $post = new Post( $validatedData);///criamos após a validação
 
         $post->user_id = Auth::id();//identificamos o autor
         $post->save();//salvamos
+
+        if($request->hasFile('image') and $request->file('image')->isValid()){
+            $extension = $request->image->extension();//deixo a estensão da img isolada
+           
+            //crio um nome para a img
+            $image_name = now()->toDateTimeString()."_".substr(base64_encode(sha1(mt_rand())),0,10);
+
+            $path = $request->image->storeAs('posts',$image_name.".".$extension,'public');
+
+            $image = new Image();
+            $image->post_id = $post->id;
+            $image->path = $path;
+            $image->save(); 
+        }
         return redirect('posts')->with('success', 'Post criado com sucesso');
     }
 
