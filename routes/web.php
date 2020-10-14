@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\HomeController;
 
 /*
@@ -24,3 +25,5 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 //Rota responsavel por criar o post
 Route::resource('/posts', PostController::class)->middleware('auth');
 
+//rota responsavel por criar as tags
+Route::resource('/tags', TagController::class)->middleware('auth');
