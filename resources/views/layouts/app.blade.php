@@ -40,6 +40,9 @@
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
     <a class="dropdown-item" href="{{ route ('posts.index')}}">{{'Post index'}}</a>
     <a class="dropdown-item" href="{{ route ('posts.create')}}">{{'Create novo Post'}}</a>
+    <a class="dropdown-item" href="{{ route ('tags.create')}}">{{'Create nova tag'}}</a>
+    <a class="dropdown-item" href="{{ route ('tags.index')}}">{{'listar tags'}}</a>
+
   </div>
 </div>
                     </ul>
