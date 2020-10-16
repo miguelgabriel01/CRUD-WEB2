@@ -24,7 +24,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        return view('tags.create');//view de criação
     }
 
     /**
@@ -35,7 +35,14 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $validatedData = $request->validate([
+             'name' => ['required','unique:tags','max:60'],
+         ]);
+
+         $tag = new tag($validatedData);
+
+         $tag->save();
+         return redirect('tags')->with('success', 'Tag criada com sucesso');
     }
 
     /**
