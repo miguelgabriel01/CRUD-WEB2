@@ -53,6 +53,10 @@ class Post extends Model
     public function image(){
         return $this->hasOne('App\Models\Image');
     }
+
+    public function tags(){
+        return $this->belongsToMany('App\Models\Tag')->withTimestamps();
+    }
 }
 
 
