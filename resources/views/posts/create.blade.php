@@ -52,6 +52,18 @@
   </div>
 </div>
 
+<div class="col">
+  <div class="col">
+    <div class="form-group">
+      <strong>Tags: </strong>
+       <select name="tags_id[]" id="" class="custom-select" multiple>
+          @foreach($tags as $tag)
+          <option value="{{ $tag->id}}">{{ $tag->name}}</option>
+          @endforeach
+       </select>
+    </div>
+  </div>
+</div>
 
 
 <div class="row">

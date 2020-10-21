@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;//model de post 
 use App\Models\Image;//model de image
+use App\Models\Tag;//model de tag
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;//classe de autenticação
 use Illuminate\Validation\Rule;
@@ -34,7 +35,8 @@ class PostController extends Controller
      //Metodo responsavel por criar os ports
     public function create()
     {
-        return view('posts.create');//redireiona para a view de criação de post
+        $tags = Tag::all();//busca por todas as tags no Banco de dados
+        return view('posts.create',compact('tags'));//redireiona para a view de criação de post
     }
 
     /**
